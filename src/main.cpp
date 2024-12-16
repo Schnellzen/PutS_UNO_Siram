@@ -10,21 +10,23 @@ int sensor_pin_1 = A0; // Soil Sensor input at Analog PIN A0
 int sensor_pin_2 = A1;
 int output_value_1;
 int output_value_2; 
-int relayPin1 = 6;
+int relayPin1 = 6; 
 int relayPin2 = 3; 
 //float humid;
 //float temp;
 
 LCD_I2C lcd(0x27, 16, 2); 
 
+//
 ////threshold and safety
 #define safety 2 //pump won't turn on if the mc is below 2% (since a value below 2% indicates sensor failure)
 //comment out safety to disable safety feature
 #define threshold 70 //pump will turn on when mc is above 70% 
 //change this value to your preference
-////end- threshold and safety
+////threshold and safety
+//
 
-
+//
 ////two point callib
 #define callib //uncomment this for using your own calibration data (edit from line 22 to 31, replace it with you own data)
 
@@ -51,8 +53,10 @@ LCD_I2C lcd(0x27, 16, 2);
   #define mc2_value_D 100
 #endif
 ////end- two point callib
+//
 
-//void-voidan 
+//
+////void-voidan 
 // void dht_data(){ //uncomment this if only dht data update needed
 //   float humid = dht.readHumidity(); 
 //   float temp = dht.readTemperature();
@@ -135,6 +139,8 @@ void mc_lcd(){
   }
 
 }
+////void-voidan 
+//
 
 void setup(){ 
   lcd.begin(); 
