@@ -19,27 +19,27 @@ LCD_I2C lcd(0x27, 16, 2);
 
 //two point callib
 
-//#define callib //uncomment this for using your own calibration data (edit from line 22 to 31, replace it with you own data)
+#define callib //uncomment this for using your own calibration data (edit from line 22 to 31, replace it with you own data)
 
 #ifdef callib //tjis value will only used if line 20 is uncommented
   #define mc1_raw_U 1024 //raw value when mc1_value_U is readed, for example, if the soil moisture is 0%, the raw value usually arround 1000
-  #define mc1_raw_D 450
-  #define mc1_value_U 0 //moisture content in percent
-  #define mc1_value_D 100
+  #define mc1_raw_D 272
+  #define mc1_value_U 0 //moisture content in percent when mc1_raw_U value read
+  #define mc1_value_D 93 //moisture content in percent when mc1_raw_D value read
 
   #define mc2_raw_U 1024
-  #define mc2_raw_D 370
+  #define mc2_raw_D 265
   #define mc2_value_U 0
-  #define mc2_value_D 100
+  #define mc2_value_D 93
 
 #else 
   #define mc1_raw_U 1024
-  #define mc1_raw_D 450
+  #define mc1_raw_D 350 //first value used is 450
   #define mc1_value_U 0
   #define mc1_value_D 100
 
   #define mc2_raw_U 1024
-  #define mc2_raw_D 450
+  #define mc2_raw_D 350
   #define mc2_value_U 0
   #define mc2_value_D 100
 #endif
