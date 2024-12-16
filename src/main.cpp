@@ -2,7 +2,7 @@
 #include <Adafruit_Sensor.h>
 #include <DHT.h> 
 #include <LCD_I2C.h> 
-//testtt
+
 #define DHTTYPE DHT11 
 #define DHTPIN 5
 DHT dht(DHTPIN, DHTTYPE); 
@@ -17,8 +17,15 @@ int relayPin2 = 3;
 
 LCD_I2C lcd(0x27, 16, 2); 
 
-//two point callib
+////threshold and safety
+#define safety 2 //pump won't turn on if the mc is below 2% (since a value below 2% indicates sensor failure)
+//comment out safety to disable safety feature
+#define threshold 70 //pump will turn on when mc is above 70% 
+//change this value to your preference
+////end- threshold and safety
 
+
+////two point callib
 #define callib //uncomment this for using your own calibration data (edit from line 22 to 31, replace it with you own data)
 
 #ifdef callib //tjis value will only used if line 20 is uncommented
@@ -43,6 +50,7 @@ LCD_I2C lcd(0x27, 16, 2);
   #define mc2_value_U 0
   #define mc2_value_D 100
 #endif
+////end- two point callib
 
 //void-voidan 
 // void dht_data(){ //uncomment this if only dht data update needed
@@ -68,22 +76,26 @@ void dht_data_lcd(){
 
 void mc_data_exc(){
   output_value_1 = map(analogRead(sensor_pin_1),mc1_raw_U,mc1_raw_D,mc1_value_U,mc1_value_D); 
-  if(output_value_1<50){
+  if(output_value_1<threshold){
     digitalWrite(relayPin1, LOW); 
-    if(output_value_1<2){
+    #ifdef safety
+    if(output_value_1<safety){
       digitalWrite(relayPin1, HIGH);
     }
+    #endif
   }
   else{
     digitalWrite(relayPin1, HIGH); 
   }
 
   output_value_2 = map(analogRead(sensor_pin_2),mc2_raw_U,mc2_raw_D,mc2_value_U,mc2_value_D); 
-  if(output_value_2<50){
+  if(output_value_2<threshold){
     digitalWrite(relayPin2, LOW); 
-    if(output_value_2<2){
+    #ifdef safety
+    if(output_value_2<safety){
       digitalWrite(relayPin2, HIGH);
     }
+    #endif
   }
   else{
     digitalWrite(relayPin2, HIGH); 
