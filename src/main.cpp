@@ -48,7 +48,7 @@ LCD_I2C lcd(0x27, 16, 2);
   #define mc1_value_D 100
 
   #define mc2_raw_U 1024
-  #define mc2_raw_D 350
+  #define mc2_raw_D 350 //first value usesd is 370
   #define mc2_value_U 0
   #define mc2_value_D 100
 #endif
